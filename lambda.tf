@@ -11,7 +11,7 @@ data "archive_file" "dir_hash_zip" {
 }
 
 resource "null_resource" "install_python_dependencies" {
-  triggers {
+  triggers = {
     requirements = "${sha1(file("${var.source_code_path}/requirements.txt"))}"
     dir_hash     = "${data.archive_file.dir_hash_zip.output_base64sha256}"
   }
@@ -19,7 +19,7 @@ resource "null_resource" "install_python_dependencies" {
   provisioner "local-exec" {
     command = "bash ${path.module}/scripts/py_pkg.sh"
 
-    environment {
+    environment = {
       source_code_path = "${var.source_code_path}"
       path_cwd         = "${path.cwd}"
       path_module      = "${path.module}"
@@ -48,5 +48,7 @@ resource "aws_lambda_function" "lambda" {
   timeout          = "${var.timeout}"
   memory_size      = "${var.memory_size}"
 
-  environment = ["${slice( list(var.environment), 0, length(var.environment) == 0 ? 0 : 1 )}"]
+  environment {
+    variables = var.environment
+  }
 }
