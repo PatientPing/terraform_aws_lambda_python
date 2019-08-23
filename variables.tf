@@ -38,6 +38,11 @@ variable "output_path" {
   default     = "lambda.zip"
 }
 
+variable "lambda_pkg_dir" {
+  description = "Path to the unzipped function's deployment package within local filesystem. eg: /path/to/lambda_pkg"
+  default     = "lambda_pkg"
+}
+
 variable "environment" {
   description = "Environment configuration for the Lambda function"
   type        = "map"

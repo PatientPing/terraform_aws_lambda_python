@@ -1,7 +1,7 @@
 #!/bin/bash
 #set directory permissions
 cd $path_cwd
-dir_name=lambda_pkg_$random_string/
+dir_name=$lambda_pkg_dir
 mkdir $dir_name
 
 #virtual env setup
@@ -25,12 +25,3 @@ cp -r . $path_cwd/$dir_name
 cp -r $source_code_path/ $path_cwd/$dir_name
 #removing virtual env folder
 rm -rf $path_module/env-$function_name/
-#add lambda_pkg directory to .gitignore
-GIT_FILE=$path_cwd/.gitignore
-if [ -f $GIT_FILE ]; then
-  echo '#ignore lambda_pkg dir' >> $path_cwd/.gitignore
-  echo $dir_name >> $path_cwd/.gitignore
-else
-  echo '#ignore lambda_pkg dir' > $path_cwd/.gitignore
-  echo $dir_name > $path_cwd/.gitignore
-fi
