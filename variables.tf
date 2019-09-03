@@ -48,3 +48,13 @@ variable "environment" {
   type        = "map"
   default     = {}
 }
+
+variable "security_group_ids" {
+  type        = list(string)
+  description = "The Lambda function's Security Group"
+}
+
+variable "subnet_ids" {
+  type        = list(string)
+  description = "The Lambda function's Subnet Ids"
+}
